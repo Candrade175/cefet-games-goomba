@@ -25,6 +25,9 @@ public class Game extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture[] mapLevelsTextures;
     
+    private Texture fundo;
+    private int fundoX, fundoY;
+    
     /**
      * No método create colocamos código de inicialização do jogo. Por exemplo,
      * carregamos texturas, sons e outros recursos. Aqui também instanciamos
@@ -38,6 +41,11 @@ public class Game extends ApplicationAdapter {
         mapLevelsTextures[0] = new Texture("map-level-1.png");
         mapLevelsTextures[1] = new Texture("map-level-2.png");
 
+        
+        batch = new SpriteBatch();
+        fundo = new Texture("goomba.png");
+        fundoX = 20;
+        fundoY = 0;
         
         // cor de fundo da tela: branco
         Gdx.gl.glClearColor(1, 1, 1, 1);        
@@ -73,8 +81,8 @@ public class Game extends ApplicationAdapter {
         batch.begin();        
             // desenhos são realizados aqui
             batch.draw(mapLevelsTextures[0], 0, 0);
-            //batch.draw(mapLevelsTextures[1], 0, 0);
-
+            batch.draw(mapLevelsTextures[1], 0, 0);
+            batch.draw(fundo, fundoX, fundoY);
         batch.end();
     }
 
