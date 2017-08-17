@@ -44,8 +44,8 @@ public class Game extends ApplicationAdapter {
         
         batch = new SpriteBatch();
         fundo = new Texture("goomba.png");
-        fundoX = 20;
-        fundoY = 0;
+        fundoX = 30;
+        fundoY = 10;
         
         // cor de fundo da tela: branco
         Gdx.gl.glClearColor(1, 1, 1, 1);        
@@ -99,8 +99,16 @@ public class Game extends ApplicationAdapter {
     public void update(float delta) {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
+        } else if (Gdx.input.isKeyJustPressed(Keys.W)) {
+            fundoY++;
+        } else if (Gdx.input.isKeyJustPressed(Keys.S)) {
+            fundoY--;
+        } else if (Gdx.input.isKeyJustPressed(Keys.E)) {
+            fundoX++;
+        } else if (Gdx.input.isKeyJustPressed(Keys.Q)) {
+            fundoX--;
         }
-
+        
         // ...
     }
     
