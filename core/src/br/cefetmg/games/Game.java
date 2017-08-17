@@ -36,6 +36,7 @@ public class Game extends ApplicationAdapter {
         batch = new SpriteBatch();
         mapLevelsTextures = new Texture[2];
         mapLevelsTextures[0] = new Texture("map-level-1.png");
+        mapLevelsTextures[1] = new Texture("map-level-2.png");
 
         
         // cor de fundo da tela: branco
@@ -72,6 +73,7 @@ public class Game extends ApplicationAdapter {
         batch.begin();        
             // desenhos são realizados aqui
             batch.draw(mapLevelsTextures[0], 0, 0);
+            //batch.draw(mapLevelsTextures[1], 0, 0);
 
         batch.end();
     }
