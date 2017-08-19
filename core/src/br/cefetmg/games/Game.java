@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -24,9 +25,9 @@ public class Game extends ApplicationAdapter {
 
     private SpriteBatch batch;
     private Texture[] mapLevelsTextures;
+    private Sprite jogador;
     
-    private Texture fundo;
-    private int fundoX, fundoY;
+    private Texture textura;
     
     /**
      * No método create colocamos código de inicialização do jogo. Por exemplo,
@@ -43,9 +44,9 @@ public class Game extends ApplicationAdapter {
 
         
         batch = new SpriteBatch();
-        fundo = new Texture("goomba.png");
-        fundoX = 30;
-        fundoY = 10;
+        textura = new Texture("goomba.png");
+        jogador = new Sprite(textura);
+        jogador.setPosition(30, 10);
         
         // cor de fundo da tela: branco
         Gdx.gl.glClearColor(1, 1, 1, 1);        
@@ -81,8 +82,8 @@ public class Game extends ApplicationAdapter {
         batch.begin();        
             // desenhos são realizados aqui
             batch.draw(mapLevelsTextures[0], 0, 0);
+            jogador.draw(batch);
             batch.draw(mapLevelsTextures[1], 0, 0);
-            batch.draw(fundo, fundoX, fundoY);
         batch.end();
     }
 
@@ -100,20 +101,14 @@ public class Game extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
         } else if (Gdx.input.isKeyPressed(Keys.W)) {
-            fundoY++;
+            jogador.translateY(1);
         } else if (Gdx.input.isKeyPressed(Keys.S)) {
-            fundoY--;
+            jogador.translateY(-1);
         } else if (Gdx.input.isKeyPressed(Keys.E)) {
-            fundoX++;
+            jogador.translateX(1);
         } else if (Gdx.input.isKeyPressed(Keys.Q)) {
-            fundoX--;
-        } else if (Gdx.input.isKeyPressed(Keys.A)) {
-            fundoX--;
-            fundoY--;
-        } else if (Gdx.input.isKeyPressed(Keys.D)) {
-            fundoX++;
-            fundoY--;
-        } 
+            jogador.translateX(-1);
+        }
         
         // ...
     }
