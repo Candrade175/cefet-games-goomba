@@ -10,12 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Goomba
 {
     private Texture textura;
-    private Sprite jogador;
+//    private Sprite jogador;
     
     public Goomba(Texture textura) {
         this.textura = textura;
-        jogador = new Sprite(textura);
-        jogador.setPosition(30, 10);
+//        jogador = new Sprite(textura);
+//        jogador.setPosition(30, 10);
     }
     
     void render(SpriteBatch batch, Texture[] mapLevelsTextures) {
