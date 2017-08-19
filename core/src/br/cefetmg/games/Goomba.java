@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 public class Goomba
 {
@@ -16,19 +17,30 @@ public class Goomba
     private Texture textura;
     private TextureRegion[][] quadrosDaAnimacao;
     Animation andarParaFrente;
+    float tempoDaAnimacao = 0;
+    private Vector2 position;
+    
+    private int larguraDoQuadro = 21;
+    private int alturaDoQuadro = 24;
+    private int positionX;
+    private int positionY;
 //    private Sprite jogador;
 
     public Goomba(Texture textura)
     {
         this.textura = textura;
-        quadrosDaAnimacao = TextureRegion.split(textura, 21, 24);
+        quadrosDaAnimacao = TextureRegion.split(textura, larguraDoQuadro, alturaDoQuadro);
         andarParaFrente = new Animation(0.1f,
-                quadrosDaAnimacao[0][0], // 1ª linha, 1ª coluna
-                quadrosDaAnimacao[0][1], // idem, 2ª coluna
+                quadrosDaAnimacao[0][0],
+                quadrosDaAnimacao[0][1], 
                 quadrosDaAnimacao[0][2],
                 quadrosDaAnimacao[0][3],
                 quadrosDaAnimacao[0][4]);
         andarParaFrente.setPlayMode(PlayMode.LOOP_PINGPONG);
+        tempoDaAnimacao = 0;
+        
+        positionX = 30;
+        positionY = 10;
 //        jogador = new Sprite(textura);
 //        jogador.setPosition(30, 10);
     }
@@ -46,16 +58,31 @@ public class Goomba
         batch.begin();
         // desenhos são realizados aqui
         batch.draw(mapLevelsTextures[0], 0, 0);
-        jogador.draw(batch);
+        //jogador.draw(batch);
+        batch.draw((TextureRegion) andarParaFrente.getKeyFrame(tempoDaAnimacao), positionX, positionY);
         batch.draw(mapLevelsTextures[1], 0, 0);
         batch.end();
     }
 
     void update(float delta)
     {
+        tempoDaAnimacao += Gdx.graphics.getDeltaTime();
+    
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             Gdx.app.exit();
         else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if (positionY + 1 < Gdx.graphics.getHeight() - alturaDoQuadro)
+                positionY += 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            if (positionY - 1 > 0)
+                positionY -= 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            if (positionX + 1 < Gdx.graphics.getWidth() - larguraDoQuadro)
+                positionX += 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.Q))
+            if (positionX - 1 > 0)
+                positionX -= 1;
+        /*else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             if (jogador.getY() + 1 < Gdx.graphics.getHeight() - jogador.getRegionHeight())
                 jogador.translateY(1);
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
@@ -66,6 +93,6 @@ public class Goomba
                 jogador.translateX(1);
         } else if (Gdx.input.isKeyPressed(Input.Keys.Q))
             if (jogador.getX() - 1 > 0)
-                jogador.translateX(-1);
+                jogador.translateX(-1);*/
     }
 }
