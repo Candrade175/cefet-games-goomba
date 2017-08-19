@@ -16,7 +16,7 @@ public class Goomba
 
     private Texture textura;
     private TextureRegion[][] quadrosDaAnimacao;
-    Animation andarParaFrente;
+    Animation animacaoAtual, andarParaFrente, andarParaDireita, andarParaTras, andarParaEsquerda;
     float tempoDaAnimacao = 0;
     private Vector2 position;
     
@@ -36,7 +36,26 @@ public class Goomba
                 quadrosDaAnimacao[0][2],
                 quadrosDaAnimacao[0][3],
                 quadrosDaAnimacao[0][4]);
+        andarParaDireita = new Animation(0.1f,
+                quadrosDaAnimacao[1][0],
+                quadrosDaAnimacao[1][1], 
+                quadrosDaAnimacao[1][2],
+                quadrosDaAnimacao[1][3],
+                quadrosDaAnimacao[1][4]);
+        andarParaTras = new Animation(0.1f,
+                quadrosDaAnimacao[2][0],
+                quadrosDaAnimacao[2][1], 
+                quadrosDaAnimacao[2][2],
+                quadrosDaAnimacao[2][3],
+                quadrosDaAnimacao[2][4]);
+        andarParaEsquerda = new Animation(0.1f,
+                quadrosDaAnimacao[3][0],
+                quadrosDaAnimacao[3][1], 
+                quadrosDaAnimacao[3][2],
+                quadrosDaAnimacao[3][3],
+                quadrosDaAnimacao[3][4]);
         andarParaFrente.setPlayMode(PlayMode.LOOP_PINGPONG);
+        animacaoAtual = andarParaFrente;
         tempoDaAnimacao = 0;
         
         positionX = 30;
@@ -59,7 +78,7 @@ public class Goomba
         // desenhos são realizados aqui
         batch.draw(mapLevelsTextures[0], 0, 0);
         //jogador.draw(batch);
-        batch.draw((TextureRegion) andarParaFrente.getKeyFrame(tempoDaAnimacao), positionX, positionY);
+        batch.draw((TextureRegion) animacaoAtual.getKeyFrame(tempoDaAnimacao), positionX, positionY);
         batch.draw(mapLevelsTextures[1], 0, 0);
         batch.end();
     }
@@ -71,17 +90,22 @@ public class Goomba
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             Gdx.app.exit();
         else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            if (positionY + 1 < Gdx.graphics.getHeight() - alturaDoQuadro)
+            animacaoAtual = andarParaTras;
+            if (positionY + 1 < Gdx.graphics.getHeight() - alturaDoQuadro) 
                 positionY += 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            animacaoAtual = andarParaFrente;
             if (positionY - 1 > 0)
                 positionY -= 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            animacaoAtual = andarParaDireita;
             if (positionX + 1 < Gdx.graphics.getWidth() - larguraDoQuadro)
                 positionX += 1;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.Q))
+        } else if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            animacaoAtual = andarParaEsquerda;
             if (positionX - 1 > 0)
                 positionX -= 1;
+        }
         /*else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             if (jogador.getY() + 1 < Gdx.graphics.getHeight() - jogador.getRegionHeight())
                 jogador.translateY(1);
