@@ -99,15 +99,21 @@ public class Game extends ApplicationAdapter {
     public void update(float delta) {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
-        } else if (Gdx.input.isKeyJustPressed(Keys.W)) {
+        } else if (Gdx.input.isKeyPressed(Keys.W)) {
             fundoY++;
-        } else if (Gdx.input.isKeyJustPressed(Keys.S)) {
+        } else if (Gdx.input.isKeyPressed(Keys.S)) {
             fundoY--;
-        } else if (Gdx.input.isKeyJustPressed(Keys.E)) {
+        } else if (Gdx.input.isKeyPressed(Keys.E)) {
             fundoX++;
-        } else if (Gdx.input.isKeyJustPressed(Keys.Q)) {
+        } else if (Gdx.input.isKeyPressed(Keys.Q)) {
             fundoX--;
-        }
+        } else if (Gdx.input.isKeyPressed(Keys.A)) {
+            fundoX--;
+            fundoY--;
+        } else if (Gdx.input.isKeyPressed(Keys.D)) {
+            fundoX++;
+            fundoY--;
+        } 
         
         // ...
     }
