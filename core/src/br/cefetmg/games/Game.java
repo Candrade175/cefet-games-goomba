@@ -101,13 +101,17 @@ public class Game extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
         } else if (Gdx.input.isKeyPressed(Keys.W)) {
-            jogador.translateY(1);
+            if(jogador.getY() + 1 < Gdx.graphics.getHeight() - jogador.getRegionHeight())  
+                jogador.translateY(1);
         } else if (Gdx.input.isKeyPressed(Keys.S)) {
-            jogador.translateY(-1);
+            if(jogador.getY() - 1 > 0)  
+                jogador.translateY(-1);
         } else if (Gdx.input.isKeyPressed(Keys.E)) {
-            jogador.translateX(1);
+            if(jogador.getX() + 1 < Gdx.graphics.getWidth() - jogador.getRegionWidth())  
+                jogador.translateX(1);
         } else if (Gdx.input.isKeyPressed(Keys.Q)) {
-            jogador.translateX(-1);
+            if(jogador.getX() - 1 > 0)  
+                jogador.translateX(-1);
         }
         
         // ...
