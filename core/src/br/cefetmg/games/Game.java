@@ -23,9 +23,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Game extends ApplicationAdapter {
 
+    private Goomba goomba;
     private SpriteBatch batch;
     private Texture[] mapLevelsTextures;
-    private Sprite jogador;
     
     private Texture textura;
     
@@ -42,11 +42,9 @@ public class Game extends ApplicationAdapter {
         mapLevelsTextures[0] = new Texture("map-level-1.png");
         mapLevelsTextures[1] = new Texture("map-level-2.png");
 
+        goomba = new Goomba(new Texture("goomba.png"));
         
         batch = new SpriteBatch();
-        textura = new Texture("goomba.png");
-        jogador = new Sprite(textura);
-        jogador.setPosition(30, 10);
         
         // cor de fundo da tela: branco
         Gdx.gl.glClearColor(1, 1, 1, 1);        
@@ -70,21 +68,7 @@ public class Game extends ApplicationAdapter {
      */
     @Override
     public void render() {
-        // apaga a tela, para desenharmos de novo
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
-        // chamando o método update(), que atualiza a lógica do jogo.
-        // passa para o método quanto tempo se passou desde a última vez
-        // que renderizamos
-        update(Gdx.graphics.getDeltaTime());
-        
-
-        batch.begin();        
-            // desenhos são realizados aqui
-            batch.draw(mapLevelsTextures[0], 0, 0);
-            jogador.draw(batch);
-            batch.draw(mapLevelsTextures[1], 0, 0);
-        batch.end();
+        goomba.render(batch, mapLevelsTextures);
     }
 
     /**
@@ -98,23 +82,6 @@ public class Game extends ApplicationAdapter {
      * @param delta o tempo que passou desde o último "quadro".
      */
     public void update(float delta) {
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-            Gdx.app.exit();
-        } else if (Gdx.input.isKeyPressed(Keys.W)) {
-            if(jogador.getY() + 1 < Gdx.graphics.getHeight() - jogador.getRegionHeight())  
-                jogador.translateY(1);
-        } else if (Gdx.input.isKeyPressed(Keys.S)) {
-            if(jogador.getY() - 1 > 0)  
-                jogador.translateY(-1);
-        } else if (Gdx.input.isKeyPressed(Keys.E)) {
-            if(jogador.getX() + 1 < Gdx.graphics.getWidth() - jogador.getRegionWidth())  
-                jogador.translateX(1);
-        } else if (Gdx.input.isKeyPressed(Keys.Q)) {
-            if(jogador.getX() - 1 > 0)  
-                jogador.translateX(-1);
-        }
-        
-        // ...
+        goomba.update(delta);
     }
-    
 }
